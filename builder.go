@@ -53,10 +53,10 @@ type Builder struct {
 }
 
 // NewBuilder creates a new instance of Builder with the provided base URL and options.
-func NewBuilder(baseURL string, opts ...BuilderOption) *Builder {
+func NewBuilder(baseURL string, opts ...BuilderOption) Builder {
 	options := defaultBuilderOptions(opts...)
 
-	return &Builder{
+	return Builder{
 		baseURL:            strings.TrimSuffix(baseURL, " /"),
 		method:             http.MethodGet,
 		header:             http.Header{},
