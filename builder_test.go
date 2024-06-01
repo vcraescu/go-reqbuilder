@@ -20,7 +20,7 @@ func TestBuilder_BuildWithHeader(t *testing.T) {
 
 	builder := reqbuilder.NewBuilder("https://example.com")
 
-	t.Run("headers are not persisted", func(t *testing.T) {
+	t.Run("headers are not persisted across multiple builds", func(t *testing.T) {
 		t.Parallel()
 
 		req, err := builder.
