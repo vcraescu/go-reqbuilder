@@ -15,6 +15,26 @@ import (
 	"github.com/vcraescu/go-reqbuilder"
 )
 
+func TestBuilder_BuildWithHeader(t *testing.T) {
+	t.Parallel()
+
+	builder := reqbuilder.NewBuilder("https://example.com")
+
+	t.Run("headers are not persisted", func(t *testing.T) {
+		t.Parallel()
+
+		req, err := builder.
+			WithHeaders(reqbuilder.JSONContentHeader).
+			Build(context.Background())
+		require.NoError(t, err)
+		require.Equal(t, req.Header, http.Header{"Content-Type": []string{"application/json"}})
+
+		req, err = builder.Build(context.Background())
+		require.NoError(t, err)
+		require.Empty(t, req.Header)
+	})
+}
+
 func TestBuilder_Build(t *testing.T) {
 	t.Parallel()
 

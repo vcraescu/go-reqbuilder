@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"maps"
 	"net/http"
 	"net/url"
 	"strings"
@@ -96,6 +97,8 @@ func (b Builder) WithBodyMarshaler(bodyMarshaler BodyMarshaler) Builder {
 
 // WithHeaders sets the request headers.
 func (b Builder) WithHeaders(headers ...http.Header) Builder {
+	b.header = maps.Clone(b.header)
+
 	mergeHeaders(b.header, headers...)
 
 	return b
